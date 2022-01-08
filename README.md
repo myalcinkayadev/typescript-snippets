@@ -200,7 +200,8 @@ const mimo: Person = {
 type PersonKeys = keyof Person;
 
 /*
-    We are restricting the keys to be from the person type, will annotate the obj to be of type person as well.
+    We are restricting the keys to be from the person type, will annotate the obj to be of type person 
+    as well.
 */
 function logGet(obj: Person, key: keyof Person) {
     const value = obj[key];
@@ -212,18 +213,19 @@ logGet(mimo, 'location');
 //logGet(mimo, 'what_the_hell_is_this'); // compile-time error
 
 /*
-    Notice that our logGet function doesn't have any code specific to the person type to make this function more general.
+    Notice that our logGet function doesn't have any code specific to the person type to make this 
+    function more general.
     
     We can use generics using a *generic type* for the obj and a generic type for the key.
-    And now the requirement that key must be something that is in the key of obj can be enforced by a *generic constraint* 
-    when we define the *generic argument*.
+    And now the requirement that key must be something that is in the key of obj can be enforced by a 
+    *generic constraint* when we define the *generic argument*.
 
     Now, with this *generic constraint* typescript knows that key will be something that is in the key of obj.
     So when we try to index obj with key in our JavaScript code, TypeScript correctly infers the type of
     the return value to be an index *lookup type* obj key.
 
-    And since value is what we return from the logGet2 function, the return type of the function is also inferred to be 
-    the *lookup type* object key.
+    And since value is what we return from the logGet2 function, the return type of the function is also 
+    inferred to be the *lookup type* object key.
 */
 
 function logGet2<Obj, Key extends keyof Obj>(obj: Obj, key: Key) {
@@ -233,8 +235,8 @@ function logGet2<Obj, Key extends keyof Obj>(obj: Obj, key: Key) {
 }
 
 /*
-    Now with this function signature in place when obj is of type person and key is of type age, the return type will be 
-    the lookup person age and we can see that it needs to be a number.
+    Now with this function signature in place when obj is of type person and key is of type age, 
+    the return type will be the lookup person age and we can see that it needs to be a number.
 
     And indeed that is what is automatically inferred when we try to use it to get mimo's age.
 */
@@ -247,8 +249,9 @@ const age = logGet2(mimo, 'age');   // 28;
     of the logGet function.
     
     The only difference is that the log set function takes an additional third argument, which has been annotated
-    with a lookup type of key,  and we've seen this type before as well. This is exactly the return type of 
-    the log function.
+    with a lookup type of key, and we've seen this type before as well.
+    
+    This is exactly the return type of the log function.
 */
 function logSet<Obj, Key extends keyof Obj>(obj: Obj, key: Key, value: Obj[Key]) {
     console.log('Setting: ', key, value);
