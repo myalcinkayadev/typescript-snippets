@@ -3,6 +3,7 @@
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
 * [Generic constraints](#generic-constraints)
+* [Typeof type operator](#typeof-type-operator)
 * [Lookup types](#lookup-types)
 
 #### Interface declaration merging
@@ -44,6 +45,38 @@ console.log(claude.email);      // i-would-like-to-paint-the-way-a-bird-sings@cl
 console.log(claude.fullName);   // Claude Monet
 
 // const jane = addFullName({ firstName: 'Jane' }); // Compile-time error, missing field
+```
+
+#### Typeof type operator
+```
+const center = {
+  x: 0,
+  y: 0,
+  z: 0,
+};
+
+type Point = typeof center;
+
+const unit: Point = {
+    x: center.x + 1,
+    y: center.y + 1,
+    z: center.z + 1,
+};
+
+// json usage
+const personResponse = [{
+    "id": 1,
+    "first_name": "Rory",
+    "last_name": "Simonot",
+    "email": "rsimonot0@howstuffworks.com",
+    "ip_address": "165.250.182.98"
+}];
+
+type PersonResponse = typeof personResponse[0];
+
+function processResponse(person: PersonResponse) {
+    console.log(`${person.first_name} ${person.last_name}`);
+}
 ```
 
 #### Lookup types
