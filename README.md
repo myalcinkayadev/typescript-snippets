@@ -1,5 +1,8 @@
 # Typescript Snippets
 
+### Playground
+https://www.typescriptlang.org/play
+
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
 * [Implements keyword](#implements-keyword)
