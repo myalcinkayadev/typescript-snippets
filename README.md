@@ -2,6 +2,7 @@
 
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
+* [Abstract class](#abstract-class)
 * [Generic constraints](#generic-constraints)
 * [Typeof type operator](#typeof-type-operator)
 * [Lookup types](#lookup-types)
@@ -22,6 +23,32 @@ function handleRequest(req: Request) {
   req.body;
   req.json;
 }
+```
+
+#### Abstract class
+```
+abstract class Command {
+    abstract commandLine(): string;
+
+    execute() {
+        console.log('Executing: ', this.commandLine());
+    }
+}
+
+class GitResetCommand extends Command {
+    commandLine() {
+        return 'git reset --hard';
+    }
+}
+
+class GitFetchCommand extends Command {
+    commandLine() {
+        return 'git fetch --all';
+    }
+}
+
+new GitResetCommand().execute();
+new GitFetchCommand().execute();
 ```
 
 #### Generic constraints
