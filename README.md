@@ -7,6 +7,7 @@ https://www.typescriptlang.org/play
 * [Interface declaration merging](#interface-declaration-merging)
 * [Implements keyword](#implements-keyword)
 * [Abstract class](#abstract-class)
+* [Readonly arrays and tuples](#readonly-arrays-and-tuples)
 * [This parameter](#this-parameter)
 * [Generic constraints](#generic-constraints)
 * [Typeof type operator](#typeof-type-operator)
@@ -80,6 +81,63 @@ class GitFetchCommand extends Command {
 
 new GitResetCommand().execute();
 new GitFetchCommand().execute();
+```
+
+#### Readonly arrays and tuples
+```typescript
+/*
+    Instead of declaring the input as a number array, we can declare it as a reaonly number array.
+    Now any mutating methods will no longer be avaible on input.
+
+    So if you want to use the sort and the reverse methods, the first thing that we will need to do is
+    to create a copy of the input aray using the built in slice method or rest parameters.
+
+    This creates a new non-readonly array which can then be safely sorted and reversed and then returned.
+    And now when we invoke this reverseSorted method on the start variable, the start variable is no longer 
+    mutated.
+*/
+function reverseSorted(input: readonly number[]): number[] {
+    // return [...input].sort().reverse();
+    return input.slice().sort().reverse();
+}
+
+const start = [1, 2, 3, 5, 4];
+const result = reverseSorted(start);
+
+console.log(`result: [${result}]`);   // [5, 4, 3, 2, 1]
+console.log(`start:  [${start}]`);    // [1, 2, 3, 5, 4] 
+
+// type Neat = readonly number[];
+// type Long = ReadonlyArray<number>;
+
+/*
+    Tuple example
+*/
+
+type Point = readonly [number, number];
+
+function move(point: Point, x: number, y: number): Point {
+    /*
+        Now any attempts to modify any given point will result in a compiler error.
+        Here you can see that we cannot mutate the value.
+        
+        point[0] += x;
+        point[1] += y;
+    */
+
+    /*
+        So now we can fix this error by replacing mutating implementation with an implementation 
+        that returns a new tuple created from the existing tuple, plus the moves in the x and y dimensions.
+    */
+
+   return [point[0] + x, point[1] + y];
+}
+
+const point: Point = [0, 0];
+const moved = move(point, 10, 10);
+
+console.log(moved);
+console.log(point);
 ```
 
 #### This parameter
