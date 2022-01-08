@@ -6,6 +6,7 @@ https://www.typescriptlang.org/play
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
 * [Implements keyword](#implements-keyword)
+* [User defined type guards](#user-defined-type-guards)
 * [Abstract class](#abstract-class)
 * [Readonly arrays and tuples](#readonly-arrays-and-tuples)
 * [This parameter](#this-parameter)
@@ -55,6 +56,67 @@ class Dog implements Animal {
 
 log(new Cat('Sisi'));
 log(new Dog('Lassie'));
+```
+
+#### User defined type guards
+```typescript
+type Square = {
+    size: number,
+};
+
+type Rectangle = {
+    width: number,
+    height: number,
+};
+
+type Shape = Square | Rectangle;
+
+/*
+    These conditions are not explicitly clear that we are checking if something is a square or a rectangle
+    if('size' in shape)  -> Square
+    if('width' in shape) -> Rectangle
+    
+    We can improve the situation by adding a common member between sqaure and rectangle of different little types, 
+    thus forming a *discriminated union*.
+    
+    type Sqaure {
+        kind: 'square',
+        size: number
+    }
+
+    However, if we do not want to modify the types themselves, we can still get the readability benefit
+    by creating user defined type guards.
+
+    Simply a function that returns a boolean value and is annotated in the form (parameter is type)
+
+    function isSquare(shape: Shape): boolean {}
+    function isSquare(shape: Shape): shape is Square {}
+*/
+
+// User defined type guard
+function isSquare(shape: Shape): shape is Square {
+    return 'size' in shape;
+}
+
+function isRectangle(shape: Shape): shape is Rectangle {
+    return 'width' in shape;
+}
+
+function area(shape: Shape) {
+    if(isSquare(shape)) {
+        return shape.size * shape.size;
+    }
+    if(isRectangle(shape)) {
+        return shape.width * shape.height;
+    }
+    const _ensure: never = shape;
+    return _ensure;
+}
+
+const sqaure: Square = {
+    size: 10
+};
+console.log(`area of the sqaure: ${area(sqaure)}`);
 ```
 
 #### Abstract class
