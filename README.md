@@ -1,9 +1,27 @@
 # Typescript Snippets
 
 ### Table of contents
-
+* [Interface declaration merging](#interface-declaration-merging)
 * [Generic constraints](#generic-constraints)
 * [Lookup types](#lookup-types)
+
+#### Interface declaration merging
+```
+export interface Request {
+  body: unknown;
+}
+
+// Add additional properties to the request interface
+export interface Request {
+  json: unknown;
+}
+
+// Our Application
+function handleRequest(req: Request) {
+  req.body;
+  req.json;
+}
+```
 
 #### Generic constraints
 ```
