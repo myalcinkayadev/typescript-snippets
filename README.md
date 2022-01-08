@@ -3,6 +3,7 @@
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
 * [Abstract class](#abstract-class)
+* [This parameter](#this-parameter)
 * [Generic constraints](#generic-constraints)
 * [Typeof type operator](#typeof-type-operator)
 * [Lookup types](#lookup-types)
@@ -49,6 +50,22 @@ class GitFetchCommand extends Command {
 
 new GitResetCommand().execute();
 new GitFetchCommand().execute();
+```
+
+#### This parameter
+```
+function double(this: { value: number }) {
+    this.value = this.value * 2; // calling context
+}
+
+const valid = {
+    value: 10,
+    double,
+}
+
+valid.double();
+
+console.log(valid.value);
 ```
 
 #### Generic constraints
