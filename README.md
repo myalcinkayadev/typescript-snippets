@@ -76,8 +76,8 @@ type Shape = Square | Rectangle;
     if('size' in shape)  -> Square
     if('width' in shape) -> Rectangle
     
-    We can improve the situation by adding a common member between sqaure and rectangle of different little types, 
-    thus forming a *discriminated union*.
+    We can improve the situation by adding a common member between sqaure and rectangle of different 
+    little types, thus forming a *discriminated union*.
     
     type Sqaure {
         kind: 'square',
