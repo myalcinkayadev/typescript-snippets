@@ -217,15 +217,17 @@ logGet(mimo, 'location');
     function more general.
     
     We can use generics using a *generic type* for the obj and a generic type for the key.
-    And now the requirement that key must be something that is in the key of obj can be enforced by a 
-    *generic constraint* when we define the *generic argument*.
+    And now the requirement that key must be something that is in the key of obj can be enforced 
+    by a *generic constraint* when we define the *generic argument*.
 
-    Now, with this *generic constraint* typescript knows that key will be something that is in the key of obj.
-    So when we try to index obj with key in our JavaScript code, TypeScript correctly infers the type of
-    the return value to be an index *lookup type* obj key.
+    Now, with this *generic constraint* typescript knows that key will be something that is in 
+    the key of obj.
+    
+    So when we try to index obj with key in our JavaScript code, TypeScript correctly infers the 
+    type of the return value to be an index *lookup type* obj key.
 
-    And since value is what we return from the logGet2 function, the return type of the function is also 
-    inferred to be the *lookup type* object key.
+    And since value is what we return from the logGet2 function, the return type of the function 
+    is also inferred to be the *lookup type* object key.
 */
 
 function logGet2<Obj, Key extends keyof Obj>(obj: Obj, key: Key) {
@@ -244,12 +246,14 @@ const age = logGet2(mimo, 'age');   // 28;
 //logGet2(mimo, 'not_now_im_too_drunk'); // compile-time error
 
 /*
-    Now, similar to how we have the logGet function, we can easily apply the same knowledge to build a log set function.
-    The body of the function is pretty simple in terms of the function signature. It is very similar to the signature 
-    of the logGet function.
+    Now, similar to how we have the logGet function, we can easily apply the same knowledge to build 
+    a log set function.
     
-    The only difference is that the log set function takes an additional third argument, which has been annotated
-    with a lookup type of key, and we've seen this type before as well.
+    The body of the function is pretty simple in terms of the function signature. It is very similar 
+    to the signature of the logGet function.
+    
+    The only difference is that the log set function takes an additional third argument, which has been 
+    annotated with a lookup type of key, and we've seen this type before as well.
     
     This is exactly the return type of the log function.
 */
