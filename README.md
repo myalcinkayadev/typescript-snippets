@@ -2,6 +2,7 @@
 
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
+* [Implements keyword](#implements-keyword)
 * [Abstract class](#abstract-class)
 * [This parameter](#this-parameter)
 * [Generic constraints](#generic-constraints)
@@ -9,7 +10,7 @@
 * [Lookup types](#lookup-types)
 
 #### Interface declaration merging
-```
+```typescript
 export interface Request {
   body: unknown;
 }
@@ -26,8 +27,33 @@ function handleRequest(req: Request) {
 }
 ```
 
-#### Abstract class
+#### Implements keyword
+```typescript
+type Animal = {
+    name: string,
+    voice(): string,
+}
+
+function log(animal: Animal) {
+    console.log(`Animal ${animal.name}: ${animal.voice()}`);
+}
+
+class Cat implements Animal {
+    constructor(public name: string) {}
+    voice() { return 'meow 🙀'; }
+}
+
+class Dog implements Animal {
+    constructor(public name: string) { }
+    voice() { return 'woof 🐶'; }
+}
+
+log(new Cat('Sisi'));
+log(new Dog('Lassie'));
 ```
+
+#### Abstract class
+```typescript
 abstract class Command {
     abstract commandLine(): string;
 
@@ -53,7 +79,7 @@ new GitFetchCommand().execute();
 ```
 
 #### This parameter
-```
+```typescript
 function double(this: { value: number }) {
     this.value = this.value * 2; // calling context
 }
@@ -69,7 +95,7 @@ console.log(valid.value);
 ```
 
 #### Generic constraints
-```
+```typescript
 type NameFields = { firstName: string, lastName: string };
 
 function addFullName<T extends NameFields>(obj: T): T & { fullName: string } {
@@ -92,7 +118,7 @@ console.log(claude.fullName);   // Claude Monet
 ```
 
 #### Typeof type operator
-```
+```typescript
 const center = {
   x: 0,
   y: 0,
@@ -124,7 +150,7 @@ function processResponse(person: PersonResponse) {
 ```
 
 #### Lookup types
-```
+```typescript
 export type SubmitRequest = {
     // ... complex type
     personal: {
