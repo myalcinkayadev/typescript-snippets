@@ -197,8 +197,7 @@ const mimo: Person = {
 type PersonKeys = keyof Person;
 
 /*
-    We are restricting the keys to be from the person type, will annotate the obj to be
-    of type person as well.
+    We are restricting the keys to be from the person type, will annotate the obj to be of type person as well.
 */
 function logGet(obj: Person, key: keyof Person) {
     const value = obj[key];
