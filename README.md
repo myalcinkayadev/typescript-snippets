@@ -1,7 +1,9 @@
 # Typescript Snippets
 
 ### Playground
-https://www.typescriptlang.org/play
+https://www.typescriptlang.org/play (recommended)
+<br>
+https://vscode.dev
 
 ### Table of contents
 * [Interface declaration merging](#interface-declaration-merging)
